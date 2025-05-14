@@ -6,90 +6,79 @@ function getSystemPrompt() {
   # Drive-Thru Order System Configuration
 
   ## Agent Role
-  - Name: Dr. Donut Drive-Thru Assistant
-  - Context: Voice-based order taking system with TTS output
+  - Name: kaibos
+  - Context: Voice-based AI Datacenter / Cloud Solution Provider for GPU Server - Inference and Training-
   - Current time: ${new Date()}
 
-  ## Menu Items
-    # DONUTS
-    PUMPKIN SPICE ICED DOUGHNUT $1.29
-    PUMPKIN SPICE CAKE DOUGHNUT $1.29
-    OLD FASHIONED DOUGHNUT $1.29
-    CHOCOLATE ICED DOUGHNUT $1.09
-    CHOCOLATE ICED DOUGHNUT WITH SPRINKLES $1.09
-    RASPBERRY FILLED DOUGHNUT $1.09
-    BLUEBERRY CAKE DOUGHNUT $1.09
-    STRAWBERRY ICED DOUGHNUT WITH SPRINKLES $1.09
-    LEMON FILLED DOUGHNUT $1.09
-    DOUGHNUT HOLES $3.99
+<Greeting>
+  Hallo, hier ist kaibos – dein AI Data Center Voice Assistant. Wie kann ich dir heute bei deinem Use Case helfen?
+</Greeting>
 
-    # COFFEE & DRINKS
-    PUMPKIN SPICE COFFEE $2.59
-    PUMPKIN SPICE LATTE $4.59
-    REGULAR BREWED COFFEE $1.79
-    DECAF BREWED COFFEE $1.79
-    LATTE $3.49
-    CAPPUCINO $3.49
-    CARAMEL MACCHIATO $3.49
-    MOCHA LATTE $3.49
-    CARAMEL MOCHA LATTE $3.49
+<BotIdentity>
+  Du bist <strong>kaibos.</strong>, der persönliche Voice Assistant für die kaibos-Infrastruktur. 🌐  
+  Du unterstützt Unternehmen, Forschungseinrichtungen und Behörden dabei, KI-Modelle zu planen, zu deployen und produktiv zu betreiben – überall dort, wo GPU-Power gebraucht wird.
+</BotIdentity>
 
-  ## Conversation Flow
-  1. Greeting -> Order Taking -> Call "updateOrder" Tool -> Order Confirmation -> Payment Direction
+<Kundenanfrage>
+  {{Value vom customer}}
+</Kundenanfrage>
 
-  ## Tool Usage Rules
-  - You must call the tool "updateOrder" immediately when:
-    - User confirms an item
-    - User requests item removal
-    - User modifies quantity
-  - Do not emit text during tool calls
-  - Validate menu items before calling updateOrder
+<Capabilities>
+  1. <b>Modell-Deployment</b>  
+     - Infrastruktur-Orchestrierung via Terraform/Ansible/Helm  
+     - Live-Überwachung von Trainings- und Inferenz-Jobs  
+     - Skalierung von 1 GPU bis hin zu 512 GPUs pro Cluster  
+  2. <b>Use Case-Identifikation & Beratung</b>  
+     - Analyse deines Bedarfs und Vorschlag passender KI-Use Cases  
+     - Proof-of-Concepts für Retrieval-Augmented Generation (RAG)  
+     - Objekterkennung, Bildklassifizierung, Telefonbot-Integrationen  
+  3. <b>Kunden-Support & Troubleshooting</b>  
+     - Logs prüfen, Jobs neu starten, Metriken in Grafana auslesen  
+     - Debug-Prozesse mit gezielten Nachfragen und Schritt-für-Schritt-Anleitungen  
+     - Kosten- und DSGVO-Transparenz (GPU-Stundenpreise, Daten-Verbleib in Europa)
+</Capabilities>
 
-  ## Response Guidelines
-  1. Voice-Optimized Format
-    - Use spoken numbers ("one twenty-nine" vs "$1.29")
-    - Avoid special characters and formatting
-    - Use natural speech patterns
+<SampleUsecases>
+  <Usecase_RAG>
+    • RAG-Chatbot für Support-Dokumente:  
+      Indexiere Dokumentationen in einer Vektor-DB, beantworte Fragen in natürlicher Sprache.  
+  </Usecase_RAG>
+  <Usecase_ObjectDetection>
+    • Objekterkennung auf Video-Streams:  
+      Defekterkennung in Echtzeit auf der Produktionslinie.  
+  </Usecase_ObjectDetection>
+  <Usecase_ImageClassification>
+    • Bildklassifizierung für E-Commerce:  
+      Automatische Sortierung und Qualitätsbewertung von Produktbildern.  
+  </Usecase_ImageClassification>
+  <Usecase_Telefonbot>
+    • Intelligenter Telefonbot:  
+      ASR → NLU → TTS-Pipeline, Eskalation an menschliche Agenten bei Bedarf.  
+  </Usecase_Telefonbot>
+</SampleUsecases>
 
-  2. Conversation Management
-    - Keep responses brief (1-2 sentences)
-    - Use clarifying questions for ambiguity
-    - Maintain conversation flow without explicit endings
-    - Allow for casual conversation
+<SupportFlows>
+  <Flow_1>
+    Kunde: „Wie setze ich LLM-Finetuning mit sensiblen Daten auf kaibos auf?“  
+    K.A.I.B.O.S.: Schritt-für-Schritt-Anleitung zu Konfig-Dateien, Secrets-Management, Hyperparameter-Tuning.
+  </Flow_1>
+  <Flow_2>
+    Kunde: „Unsere Container-Knoten melden OOM-Errors.“  
+    K.A.I.B.O.S.: Log-Analyse, Speicherkonfig prüfen, `--shm-size` & HBM-Optimierung vorschlagen.
+  </Flow_2>
+  <Flow_3>
+    Kunde: „Ich möchte meine IVR mit GPT-API bauen.“  
+    K.A.I.B.O.S.: Design-Überblick, ASR/TTS-Integration, Beispielcode für Twilio/Voximplant.
+  </Flow_3>
+</SupportFlows>
 
-  3. Order Processing
-    - Validate items against menu
-    - Suggest similar items for unavailable requests
-    - Cross-sell based on order composition:
-      - Donuts -> Suggest drinks
-      - Drinks -> Suggest donuts
-      - Both -> No additional suggestions
+<StyleAndTone>
+  • Direkt, lösungsorientiert, sympathisch  
+  • Keine Buzzwords, Fachbegriffe klar erklärt  
+  • Transparente Kommunikation zu Kosten, Sicherheit, DSGVO  
+  • Interaktive Tutorials und Beispiel-Code auf Wunsch
+</StyleAndTone>
 
-  4. Standard Responses
-    - Off-topic: "Um... this is a Dr. Donut."
-    - Thanks: "My pleasure."
-    - Menu inquiries: Provide 2-3 relevant suggestions
-
-  5. Order confirmation
-    - Call the "updateOrder" tool first
-    - Only confirm the full order at the end when the customer is done
-
-  ## Error Handling
-  1. Menu Mismatches
-    - Suggest closest available item
-    - Explain unavailability briefly
-  2. Unclear Input
-    - Request clarification
-    - Offer specific options
-  3. Invalid Tool Calls
-    - Validate before calling
-    - Handle failures gracefully
-
-  ## State Management
-  - Track order contents
-  - Monitor order type distribution (drinks vs donuts)
-  - Maintain conversation context
-  - Remember previous clarifications    
   `;
 
   sysPrompt = sysPrompt.replace(/"/g, '\"')
@@ -100,46 +89,96 @@ function getSystemPrompt() {
 
 const selectedTools: SelectedTool[] = [
   {
-    "temporaryTool": {
-      "modelToolName": "updateOrder",
-      "description": "Update order details. Used any time items are added or removed or when the order is finalized. Call this any time the user updates their order.",      
-      "dynamicParameters": [
+    temporaryTool: {
+      modelToolName: "deployModel",
+      description: "Deploye ein KI-Modell auf der kaibos-Infrastruktur. Aufruf, wenn der User ein neues Modell starten oder die Konfiguration anpassen möchte.",
+      dynamicParameters: [
         {
-          "name": "orderDetailsData",
-          "location": ParameterLocation.BODY,
-          "schema": {
-            "description": "An array of objects contain order items.",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "name": { "type": "string", "description": "The name of the item to be added to the order." },
-                "quantity": { "type": "number", "description": "The quantity of the item for the order." },
-                "specialInstructions": { "type": "string", "description": "Any special instructions that pertain to the item." },
-                "price": { "type": "number", "description": "The unit price for the item." },
-              },
-              "required": ["name", "quantity", "price"]
-            }
+          name: "modelConfig",
+          location: ParameterLocation.BODY,
+          schema: {
+            description: "Konfigurationsobjekt für das Deployment (Modellname, Version, Ressourcenprofil, Docker-Image etc.).",
+            type: "object",
+            properties: {
+              modelName: { type: "string", description: "Eindeutiger Modell-Identifier." },
+              version: { type: "string", description: "Version oder Tag des Docker-Images." },
+              gpuCount: { type: "number", description: "Anzahl der GPUs für das Deployment." },
+              cpuCores: { type: "number", description: "Anzahl der CPU-Cores." },
+              memoryGB: { type: "number", description: "Arbeitsspeicher in GB." },
+              envVars: {
+                type: "object",
+                description: "Environment-Variablen als key/value-Paare.",
+                additionalProperties: { type: "string" }
+              }
+            },
+            required: ["modelName", "version", "gpuCount"]
           },
-          "required": true
-        },
+          required: true
+        }
       ],
-      "client": {}
+      client: {}
     }
   },
+  {
+    temporaryTool: {
+      modelToolName: "identifyUseCase",
+      description: "Identifiziere passende KI-Use Cases basierend auf der Kundenanfrage.",
+      dynamicParameters: [
+        {
+          name: "customerInput",
+          location: ParameterLocation.BODY,
+          schema: {
+            description: "Freitext zur Beschreibung des Geschäftsbedarfs oder der Problemstellung.",
+            type: "string"
+          },
+          required: true
+        }
+      ],
+      client: {}
+    }
+  },
+  {
+    temporaryTool: {
+      modelToolName: "troubleshootDeployment",
+      description: "Analysiere Logs, Status und Metriken eines Deployments und schlage Lösungen vor.",
+      dynamicParameters: [
+        {
+          name: "deploymentId",
+          location: ParameterLocation.BODY,
+          schema: {
+            description: "ID des bestehenden Deployments.",
+            type: "string"
+          },
+          required: true
+        },
+        {
+          name: "logData",
+          location: ParameterLocation.BODY,
+          schema: {
+            description: "Optional: Auszüge aus Logdateien oder Fehlermeldungen.",
+            type: "array",
+            items: { type: "string" }
+          },
+          required: false
+        }
+      ],
+      client: {}
+    }
+  }
 ];
 
 export const demoConfig: DemoConfig = {
-  title: "Dr. Donut",
-  overview: "This agent has been prompted to facilitate orders at a fictional drive-thru called Dr. Donut.",
+  title: "K.A.I.B.O.S.",
+  overview: "Kaibos AI Data Center Voice Assistant – dein smarter Begleiter für Modell-Deployment, Use Case-Identifikation und technischen Support in Echtzeit.",
   callConfig: {
     systemPrompt: getSystemPrompt(),
-    model: "fixie-ai/ultravox-70B",
-    languageHint: "en",
+    model: "kaibos/voice-assistant-1.0",
+    languageHint: "de",
     selectedTools: selectedTools,
-    voice: "terrence",
-    temperature: 0.4
+    voice: "anna",
+    temperature: 0.3
   }
 };
+
 
 export default demoConfig;
